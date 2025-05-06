@@ -1,0 +1,39 @@
+{
+  "name": "csc3916_project_api",
+  "version": "1.0.0",
+  "description": "Allow enterprises to register and specify geographical locations and delegate AORs--geographical regions/boundaries--to employee accounts for the purposes of operations within the assigned area.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node -r dotenv/config server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aphitorite/CSC3916_Project_API.git"
+  },
+  "author": "Stephen Chick",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aphitorite/CSC3916_Project_API/issues"
+  },
+  "homepage": "https://github.com/aphitorite/CSC3916_Project_API#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "http": "0.0.1-security",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^5.11.18",
+    "passport": "^0.6.0",
+    "passport-http": "^0.3.0",
+    "passport-jwt": "^4.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^10.2.0"
+  }
+}
