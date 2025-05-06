@@ -19,6 +19,11 @@ var UserSchema = new Schema({
     username: { type: String, required: true, index: { unique: true }},
     password: { type: String, required: true, select: false },
     orgId: { type: mongoose.Schema.Types.ObjectId, ref: 'Organization', required: true },
+    role: {
+        type: String,
+        enum: ['Employee', 'Admin'],
+        required: true,
+    },
 });
 
 UserSchema.pre('save', function(next) {

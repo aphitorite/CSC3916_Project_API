@@ -9,8 +9,6 @@ var authJwtController = require('./auth_jwt');
 var mongoose = require('mongoose');
 var User = require('./schemas/Users');
 var Organization = require('./schemas/Organization');
-//var Movie = require('./schemas_old/Movies');
-//var Review = require('./schemas_old/Reviews');
 
 var app = express();
 app.use(cors());
@@ -64,6 +62,7 @@ router.post('/signup', function(req, res) {
         user.name = req.body.name;
         user.username = req.body.username;
         user.password = req.body.password;
+        user.role = req.body.role;
 
         try { // match required org ID with existing org in database
             var newOrgId = mongoose.Types.ObjectId(req.body.orgId);
@@ -98,7 +97,7 @@ router.post('/signin', function (req, res) {
     userNew.username = req.body.username;
     userNew.password = req.body.password;
 
-    User.findOne({ username: userNew.username }).select('name username password').exec(function(err, user) {
+    User.findOne({ username: userNew.username }).select('name username password role').exec(function(err, user) {
         if (err) {
             res.send(err);
         }
@@ -107,7 +106,7 @@ router.post('/signin', function (req, res) {
             if (isMatch) {
                 var userToken = { id: user.id, username: user.username };
                 var token = jwt.sign(userToken, process.env.SECRET_KEY, { expiresIn: '3h' });
-                res.json ({success: true, token: 'JWT ' + token, username: user.username});
+                res.json ({success: true, token: 'JWT ' + token, username: user.username, role: user.role});
             }
             else {
                 res.status(401).send({success: false, msg: 'Authentication failed.'});
