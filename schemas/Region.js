@@ -6,6 +6,7 @@ mongoose.connect(process.env.DB);
 const RegionSchema = new mongoose.Schema({
     name: { type: String, required: true },
     boundingBox: [[]],
+    orgId: { type: mongoose.Schema.Types.ObjectId, ref: 'Organization' },
 });
 
 // return the model
