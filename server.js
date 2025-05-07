@@ -118,6 +118,29 @@ router.post('/signin', function (req, res) {
     })
 });
 
+router.route('/users').get(authJwtController.isAuthenticated, function (req, res) {
+    var orgId = req.body.orgId;
+
+    if(!orgId) {
+        return res.status(400).json({success: false, message: 'Missing orgId from body.'});
+    }
+    else if(req.body.role !== 'Admin') {
+        return res.status(403).json({success: false, message: 'User must be admin to manage AORs.'});
+    }
+    else {
+        
+        try {
+            User.find({orgId: mongoose.Types.ObjectId(orgId)}).exec(function(err, userList) {
+                if(err) return res.status(400).json(err);
+                else return res.status(200).json(userList);
+            });
+        }
+        catch(e) {
+            return res.status(400).json({success: false, message: e.message});
+        }
+    }
+});
+
 // regions and areas of responsibilities (AORs)
 
 router.route('/regions') // TODO: put and delete routes for /regions
